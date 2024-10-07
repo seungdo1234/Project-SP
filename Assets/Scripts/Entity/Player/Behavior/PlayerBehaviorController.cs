@@ -30,7 +30,6 @@ public class PlayerBehaviorController : MonoBehaviour
     }
     private IEnumerator PlayerBehaviorCoroutine()
     {
-
         while (true)
         {
             if (!IsAnimationPlaying)
