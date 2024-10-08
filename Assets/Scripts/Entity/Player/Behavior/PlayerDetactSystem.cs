@@ -10,6 +10,8 @@ public class PlayerDetactSystem : MonoBehaviour
 
     private Player player;
     private Vector2 detactVec;
+
+    private HealthSystem prevTarget;
     public void PlayerDetactInit(Player player)
     {
         this.player = player;
@@ -20,10 +22,17 @@ public class PlayerDetactSystem : MonoBehaviour
     {
         Collider2D detaction = Physics2D.OverlapBox(player.transform.position + detactOffset, detactSize, 0, layer);
 
-        if(detaction != null && detaction.TryGetComponent(out HealthSystem target))
+        if(detaction != null)
         {
-            Debug.Log(target.name);
-            return target;
+            if(prevTarget != null && detaction.gameObject == prevTarget.gameObject)
+            {
+                return prevTarget;
+            }
+            else if(detaction.TryGetComponent(out HealthSystem target))
+            {
+                prevTarget = target;
+                return target;
+            }
         }
 
         return null;

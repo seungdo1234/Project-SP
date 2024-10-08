@@ -37,7 +37,9 @@ public class PlayerBehaviorController : MonoBehaviour
                 HealthSystem target = OnDetactEvent.Invoke();
                 if (target != null)
                 {
+                    Debug.Log("Àû Å½Áö !");
                     OnAttackEvent?.Invoke(target);
+                    IsAnimationPlaying = true;
                 }
             }
             yield return null;

@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class HealthSystem : MonoBehaviour
 {
+    [SerializeField] private float curHealth;
     private float maxHealth;
-    private float curHealth;
     
     public event Action<float> OnHealthEvent;
     public void HealthInit(float maxHealth)
@@ -16,6 +16,7 @@ public class HealthSystem : MonoBehaviour
     }
 
     public void ActivateHealthEvent(float amount) {
-        
+        Debug.Log(amount);
+        curHealth += amount;
     }
 }

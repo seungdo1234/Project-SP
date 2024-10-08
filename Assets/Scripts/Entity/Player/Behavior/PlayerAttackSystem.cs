@@ -5,12 +5,17 @@ using UnityEngine;
 
 public class PlayerAttackSystem : MonoBehaviour
 {
-    private bool isAttack;
+    [SerializeField] private float takeDamageOffsetTime = 0.5f;
 
     private Player player;
     private HealthSystem target;
 
     private Coroutine attackTargetCoroutine;
+
+    private float damage;
+    bool isAttack = false;
+
+
     public void PlayerAttackInit(Player player)
     {
         this.player = player;
@@ -20,7 +25,6 @@ public class PlayerAttackSystem : MonoBehaviour
     private void PlayerAttack(HealthSystem target)
     {
         this.target = target;
-        isAttack = true;
 
         if (attackTargetCoroutine != null)
         {
@@ -31,10 +35,51 @@ public class PlayerAttackSystem : MonoBehaviour
 
     private IEnumerator AttackTargetCoroutine()
     {
+        player.Animation.BasicAttackAnimationEvent();
+        damage = player.Data.attackValue;
         while (true)
         {
-            // 애니메이션
+            if (ActivateAttackAnimation())
+                break;
             yield return null;
         }
+
+        float curTime = 0f;
+        while (true)
+        {
+            curTime += Time.deltaTime;
+            if (curTime >= player.Data.attackDelayTime)
+            {
+                break;
+            }
+            yield return null;
+        }
+
+        player.Controller.CallAttackAnimationEnd();
     }
+
+    private bool ActivateAttackAnimation( ) // 공격
+    {
+        float progress = player.Animation.AnimationProgressTime;
+
+        if (progress >= 1f)
+            return false;
+;
+        if (!isAttack && progress >= takeDamageOffsetTime)
+        {
+            isAttack = true;
+            TakeDamage();
+        }
+
+        return progress >= 0.9f;
+    }
+    private void TakeDamage()
+    {
+        Debug.Log(target);
+        if (target == null)
+            return;
+
+        target.ActivateHealthEvent(-damage);
+    }
+
 }
