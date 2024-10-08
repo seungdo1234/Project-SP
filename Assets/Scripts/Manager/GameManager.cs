@@ -4,5 +4,12 @@ using UnityEngine;
 
 public class GameManager : DontDestroySingleton<GameManager>
 {
-    public Player player;
+    [field: SerializeField] public Player Player { get; set; }
+    [field:SerializeField]public EnemySpawnManager EnemySpawn { get; set; }
+
+    public void GameStart()
+    {
+
+        EnemySpawn.TryEnemySpawn();
+    }
 }

@@ -38,4 +38,9 @@ public class EnemyAnimationEventHandler : EntityAnimationEventHandler
     {
         OnHurtAnimationEndEvent?.Invoke(isTrue);
     }
+
+    public void ChangeAnimationController(RuntimeAnimatorController changedController)
+    {
+        anim.runtimeAnimatorController = changedController;
+    }
 }

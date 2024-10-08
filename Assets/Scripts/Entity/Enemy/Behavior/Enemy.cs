@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    [field: SerializeField] public EnemyData Data { get; private set; }
+    [field: SerializeField] public EnemyStatData Data { get; private set; }
 
     public EnemyBehaviorController Controller { get; private set; }
     public EnemyAnimationEventHandler Animation { get; private set; }
@@ -18,17 +18,19 @@ public class Enemy : MonoBehaviour
 
         Health.OnDeathEvent += Animation.DeathAnimationEvent;
         Animation.OnDeathAnimationEndEvent += DeActivateEnemy;
-    }
 
-    private void Start()
-    {
         Controller.EnemyBehaviorInit(this);
-        Health.HealthInit(Data.maxHealth);
     }
-
+    public void EnemyInit(RuntimeAnimatorController changedController, EnemyStatData data)
+    {
+        Data = data;
+        Health.HealthInit(Data.maxHealth);
+        Animation.ChangeAnimationController(changedController);
+        Controller.ActivateBehavior();
+    }
     private void DeActivateEnemy()
     {
-        gameObject.SetActive(false);
+        GameManager.Instance.EnemySpawn.TryEnemySpawn();
     }
 
 }

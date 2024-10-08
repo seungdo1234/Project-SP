@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [field: SerializeField] public PlayerData Data { get; private set; }
+    [field: SerializeField] public PlayerStatData Data { get; private set; }
     
     public PlayerBehaviorController Controller { get; private set; }
     public PlayerAttackSystem Attack { get; private set; }
@@ -21,8 +21,12 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update00
     void Start()
     {
-        GameManager.Instance.player = this;
+        GameManager.Instance.Player = this;
+    }
 
+
+    public void PlayerInit()
+    {
         Attack.PlayerAttackInit(this);
         Detact.PlayerDetactInit(this);
         Controller.PlayerBehaviorInit();

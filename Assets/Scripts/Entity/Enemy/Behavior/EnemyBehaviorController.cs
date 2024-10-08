@@ -15,11 +15,10 @@ public class EnemyBehaviorController : MonoBehaviour
     {
         this.enemy = enemy;
         enemy.Health.OnDeathEvent += DieEnemy;
-        ActivateBehavior();
     }
 
 
-    private void ActivateBehavior()
+    public void ActivateBehavior()
     {
         if (moveEnemyCoroutine != null)
         {
@@ -33,7 +32,7 @@ public class EnemyBehaviorController : MonoBehaviour
     {
         enemy.Animation.RunAnimationEvent(true);
 
-        Vector3 arrive = GameManager.Instance.player.transform.position + moveOffset;
+        Vector3 arrive = GameManager.Instance.Player.transform.position + moveOffset;
 
         while (true)
         {

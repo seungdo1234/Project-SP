@@ -1,9 +1,10 @@
 using System;
 using UnityEngine;
 
+
 public enum E_GradeType { Common, Rare, Magic, Legendry, Hero}
 [Serializable]
-public class EnemyData : EntityData
+public class EnemyStatData : EntityStatData
 {
     [Header("# Enemy Data Info")]
     public string name;

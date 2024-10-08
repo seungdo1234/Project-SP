@@ -18,8 +18,6 @@ public class HealthSystem : MonoBehaviour
     private void Awake()
     {
         OnDeathEvent += SetDeath;
-
-
     }
     public void HealthInit(float maxHealth)
     {
