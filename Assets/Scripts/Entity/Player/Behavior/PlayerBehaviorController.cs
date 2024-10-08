@@ -14,8 +14,6 @@ public class PlayerBehaviorController : MonoBehaviour
     private bool IsAnimationPlaying;
     public void PlayerBehaviorInit()
     {
-
-
         ActivateBehavior();
     }
 

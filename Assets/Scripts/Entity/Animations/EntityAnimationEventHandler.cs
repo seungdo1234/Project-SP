@@ -10,7 +10,7 @@ public class EntityAnimationEventHandler : MonoBehaviour
 
     protected virtual void Awake()
     {
-        anim = GetComponentInChildren<Animator>();
+        anim = GetComponent<Animator>();
     }
 
     public bool IsMatchTag(string tag)

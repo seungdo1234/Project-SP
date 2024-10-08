@@ -16,11 +16,13 @@ public class Player : MonoBehaviour
         Controller = GetComponent<PlayerBehaviorController>();
         Attack = GetComponent<PlayerAttackSystem>();
         Detact = GetComponent<PlayerDetactSystem>();
-        Animation = GetComponent<PlayerAnimationEventHandler>();
+        Animation = GetComponentInChildren<PlayerAnimationEventHandler>();
     }
     // Start is called before the first frame update00
     void Start()
     {
+        GameManager.Instance.player = this;
+
         Attack.PlayerAttackInit(this);
         Detact.PlayerDetactInit(this);
         Controller.PlayerBehaviorInit();

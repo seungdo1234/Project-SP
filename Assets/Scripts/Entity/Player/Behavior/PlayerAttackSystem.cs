@@ -40,7 +40,10 @@ public class PlayerAttackSystem : MonoBehaviour
         while (true)
         {
             if (ActivateAttackAnimation())
+            {
+                isAttack = false;
                 break;
+            }
             yield return null;
         }
 

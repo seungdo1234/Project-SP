@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,7 @@ public class EnemyAnimationEventHandler : EntityAnimationEventHandler
 {
     private EnemyAnimationData data;
 
+    public event Action OnDeathAnimationEndEvent;
     protected override void Awake()
     {
         base.Awake();
@@ -24,6 +26,11 @@ public class EnemyAnimationEventHandler : EntityAnimationEventHandler
     public void HurtAnimationEvent()
     {
         anim.SetTrigger(data.HurtParameterHash);
+    }
+
+    public void DeathCallback()
+    {
+        OnDeathAnimationEndEvent?.Invoke();
     }
 
 }
