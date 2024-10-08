@@ -8,6 +8,7 @@ public class EnemyAnimationEventHandler : EntityAnimationEventHandler
     private EnemyAnimationData data;
 
     public event Action OnDeathAnimationEndEvent;
+    public event Action<bool> OnHurtAnimationEndEvent;
     protected override void Awake()
     {
         base.Awake();
@@ -33,4 +34,8 @@ public class EnemyAnimationEventHandler : EntityAnimationEventHandler
         OnDeathAnimationEndEvent?.Invoke();
     }
 
+    public void HurtCallback(bool isTrue)
+    {
+        OnHurtAnimationEndEvent?.Invoke(isTrue);
+    }
 }

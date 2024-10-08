@@ -10,10 +10,11 @@ public class EnemyBehaviorController : MonoBehaviour
     private Enemy enemy;
     private Coroutine moveEnemyCoroutine;
 
+    private bool isStop;
     public void EnemyBehaviorInit(Enemy enemy)
     {
         this.enemy = enemy;
-        enemy.Health.OnDeathEvent += StopMoving;
+        enemy.Health.OnDeathEvent += DieEnemy;
         ActivateBehavior();
     }
 
@@ -36,12 +37,15 @@ public class EnemyBehaviorController : MonoBehaviour
 
         while (true)
         {
-            transform.position = Vector3.MoveTowards(transform.position, arrive, enemy.Data.moveSpeed * Time.deltaTime);
-
-            if (Vector3.Distance(transform.position, arrive) <= 0.1f)
+            if (!isStop)
             {
-                transform.position = arrive;
-                break;
+                transform.position = Vector3.MoveTowards(transform.position, arrive, enemy.Data.moveSpeed * Time.deltaTime);
+
+                if (Vector3.Distance(transform.position, arrive) <= 0.1f)
+                {
+                    transform.position = arrive;
+                    break;
+                }
             }
             yield return null;
         }
@@ -49,11 +53,16 @@ public class EnemyBehaviorController : MonoBehaviour
         enemy.Animation.RunAnimationEvent(false);
     }
 
-    private void StopMoving(bool isTrue)
+    private void DieEnemy(bool isTrue)
     {
         if (isTrue && moveEnemyCoroutine != null)
         {
             StopCoroutine(moveEnemyCoroutine);
         }
+    }
+
+    private void StopEnemyMoving(bool isStop)
+    {
+        this.isStop = isStop;
     }
 }
