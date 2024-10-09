@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -28,6 +29,7 @@ public class Enemy : MonoBehaviour
         Animation.ChangeAnimationController(changedController);
         Controller.ActivateBehavior();
     }
+
     private void DeActivateEnemy()
     {
         GameManager.Instance.EnemySpawn.TryEnemySpawn();

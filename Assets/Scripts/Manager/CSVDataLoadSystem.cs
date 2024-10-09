@@ -12,7 +12,7 @@ public class CSVDataLoadSystem
         List<EnemyStatData> enemyDataList = new List<EnemyStatData>();
         List<Dictionary<string, object>> readData = CSVReader.Read(dataPath);
 
-        for (int i  = 0; i <  readData.Count- 1; i++)
+        for (int i  = 0; i <  readData.Count - 1; i++)
         {
             try
             {

@@ -8,7 +8,7 @@ public class HealthSystem : MonoBehaviour
     [SerializeField] private float curHealth;
     private float maxHealth;
 
-    public event Action<float> OnHealthEvent;
+    public event Action<float, float> OnHealthEvent;
     public event Action<bool> OnDeathEvent;
 
     private bool isDie = false;
@@ -23,6 +23,8 @@ public class HealthSystem : MonoBehaviour
     {
         this.maxHealth = maxHealth;
         curHealth = maxHealth;
+
+        OnHealthEvent?.Invoke(this.maxHealth, curHealth);
         OnDeathEvent?.Invoke(false);
     }
 
@@ -33,6 +35,9 @@ public class HealthSystem : MonoBehaviour
             return;
 
         curHealth += amount;
+        curHealth = Mathf.Max(0, curHealth);
+
+        OnHealthEvent?.Invoke(maxHealth, curHealth);
 
         if (curHealth <= 0)
         {
@@ -43,7 +48,6 @@ public class HealthSystem : MonoBehaviour
 
         }
 
-        OnHealthEvent?.Invoke(amount);
     }
 
     private void SetDeath(bool isTrue)
