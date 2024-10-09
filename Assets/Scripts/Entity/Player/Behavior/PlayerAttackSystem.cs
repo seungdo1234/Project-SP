@@ -57,7 +57,6 @@ public class PlayerAttackSystem : MonoBehaviour
             }
             yield return null;
         }
-
         player.Controller.CallAttackAnimationEnd();
     }
 
@@ -78,9 +77,15 @@ public class PlayerAttackSystem : MonoBehaviour
     }
     private void TakeDamage()
     {
-        Debug.Log(target);
         if (target == null)
-            return;
+        {
+            player.Controller.CallAttackAnimationEnd();
+            if (attackTargetCoroutine != null)
+            {
+                StopCoroutine(attackTargetCoroutine);
+            }
+            return; 
+        }
 
         target.ActivateHealthEvent(-damage);
     }

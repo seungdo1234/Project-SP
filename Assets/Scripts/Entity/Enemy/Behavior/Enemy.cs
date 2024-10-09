@@ -24,7 +24,7 @@ public class Enemy : MonoBehaviour
     public void EnemyInit(RuntimeAnimatorController changedController, EnemyStatData data)
     {
         Data = data;
-        Health.HealthInit(Data.maxHealth);
+        Health.HealthInit(Data.Health);
         Animation.ChangeAnimationController(changedController);
         Controller.ActivateBehavior();
     }

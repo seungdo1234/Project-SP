@@ -38,7 +38,7 @@ public class EnemyBehaviorController : MonoBehaviour
         {
             if (!isStop)
             {
-                transform.position = Vector3.MoveTowards(transform.position, arrive, enemy.Data.moveSpeed * Time.deltaTime);
+                transform.position = Vector3.MoveTowards(transform.position, arrive, enemy.Data.Speed * Time.deltaTime);
 
                 if (Vector3.Distance(transform.position, arrive) <= 0.1f)
                 {

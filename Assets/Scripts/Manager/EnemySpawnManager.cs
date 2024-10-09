@@ -14,6 +14,11 @@ public class EnemySpawnManager : MonoBehaviour
     [SerializeField] private Transform spawnPoint;
 
     private int enemyIdx = 0;
+
+    private void Awake()
+    {
+        enemyDataList = new CSVDataLoadSystem().LoadCSVEnemyData();
+    }
     private void Start()
     {
         GameManager.Instance.EnemySpawn = this;
