@@ -54,5 +54,10 @@ public class HealthSystem : MonoBehaviour
     {
         isDie = isTrue;
         gameObject.layer = isDie ? LayerMask.NameToLayer(enemyDieLayerName) : LayerMask.NameToLayer(enemyLayerName);
+
+        if (isDie)
+        {
+            UIManager.Instance.StatusUI.DeActivateStatusUI();
+        }
     }
 }
