@@ -21,7 +21,7 @@ public class CSVDataLoadSystem
                 enemyData.Name = readData[i]["Name"] as string;
                 enemyData.Grade = ParseGradeType(readData[i]["Grade"] as string);
                 enemyData.Speed = Convert.ToSingle(readData[i]["Speed"]);
-                enemyData.Speed += 1.5f;
+                enemyData.Speed += 1.0f;
                 enemyData.Health = Convert.ToSingle(readData[i]["Health"]);
 
                 enemyDataList.Add(enemyData);
