@@ -14,24 +14,39 @@ public class StatusUIEventHandler : MonoBehaviour
     [SerializeField] private TextMeshProUGUI speedText;
 
 
-
+    private Enemy targetEnemy;
     private void Start()
     {
         UIManager.Instance.StatusUI = this;
     }
 
-    public void ActivateStatusUI(EnemyStatData stat, float curHealth)
+    public void ActivateStatusUI(Enemy enemy)
     {
-        nameText.text = stat.Name;
-        gradeText.text = GetGradeStringValue(stat.Grade);
-        speedText.text = stat.Speed.ToString();
+        gameObject.SetActive(true);
+
+        targetEnemy = enemy;
+
+        nameText.text = enemy.Data.Name;
+        gradeText.text = GetGradeStringValue(enemy.Data.Grade);
+        speedText.text = enemy.Data.Speed.ToString();
+        healthText.text = $"{enemy.Health.CurHealth} / {enemy.Data.Health}";
+
+        enemy.Health.OnHealthEvent += UpdateHealthText;
     }
 
     public void DeActivateStatusUI()
     {
+        targetEnemy.Health.OnHealthEvent -= UpdateHealthText;
 
+        targetEnemy = null;
+
+        gameObject.SetActive(false);
     }
 
+    private void UpdateHealthText(float maxHealth, float curHealth)
+    {
+        healthText.text = $"{curHealth} / {maxHealth}";
+    }
     private string GetGradeStringValue(E_GradeType grade)
     {
         return grade switch

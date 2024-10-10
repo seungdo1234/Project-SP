@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class HealthSystem : MonoBehaviour
 {
-    [SerializeField] private float curHealth;
+    [field: SerializeField] public float CurHealth { get; private set; }
     private float maxHealth;
 
     public event Action<float, float> OnHealthEvent;
@@ -22,9 +22,9 @@ public class HealthSystem : MonoBehaviour
     public void HealthInit(float maxHealth)
     {
         this.maxHealth = maxHealth;
-        curHealth = maxHealth;
+        CurHealth = maxHealth;
 
-        OnHealthEvent?.Invoke(this.maxHealth, curHealth);
+        OnHealthEvent?.Invoke(this.maxHealth, CurHealth);
         OnDeathEvent?.Invoke(false);
     }
 
@@ -34,12 +34,12 @@ public class HealthSystem : MonoBehaviour
         if (isDie)
             return;
 
-        curHealth += amount;
-        curHealth = Mathf.Max(0, curHealth);
+        CurHealth += amount;
+        CurHealth = Mathf.Max(0, CurHealth);
 
-        OnHealthEvent?.Invoke(maxHealth, curHealth);
+        OnHealthEvent?.Invoke(maxHealth, CurHealth);
 
-        if (curHealth <= 0)
+        if (CurHealth <= 0)
         {
             OnDeathEvent?.Invoke(true);
         }
